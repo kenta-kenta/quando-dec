@@ -1,3 +1,5 @@
+# 検索機能のシーケンス
+
 ```mermaid
 sequenceDiagram
     participant User
