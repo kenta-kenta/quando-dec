@@ -41,7 +41,7 @@
                         <!-- 保存ボタン -->
                         <div class="text-right">
                             <button type="submit"
-                                class="px-6 py-2 bg-indigo-600 text-white font-bold text-sm rounded-md shadow-md hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2">
+                                class="px-6 py-2 bg-indigo-600 text-black dark:text-white font-bold text-sm rounded-md shadow-md hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2">
                                 {{ __('保存') }}
                             </button>
                         </div>
