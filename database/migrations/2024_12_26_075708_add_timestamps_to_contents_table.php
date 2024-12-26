@@ -14,12 +14,18 @@ return new class extends Migration
         Schema::table('contents', function (Blueprint $table) {
             $table->datetime('updated_at');
         });
+        Schema::table('contents', function (Blueprint $table) {
+            $table->string('title')->nullable()->change();
+        });
     }
 
     public function down()
     {
         Schema::table('contents', function (Blueprint $table) {
             $table->dropTimestamps();
+        });
+        Schema::table('contents', function (Blueprint $table) {
+            $table->string('title')->nullable(false)->change();
         });
     }
 };
