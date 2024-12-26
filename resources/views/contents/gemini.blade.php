@@ -25,15 +25,13 @@
                         </div>
                     </div>
 
-                    <!-- 戻るボタン -->
-                    <div class="mt-6">
+                    <!-- ボタングループ -->
+                    <div class="mt-6 flex justify-between items-center">
                         <a href="{{ route('contents.create') }}"
                             class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300">
                             戻る
                         </a>
-                    </div>
 
-                    <div>
                         <form method="POST" action="{{ route('contents.store') }}">
                             @csrf
                             <input type="hidden" name="original_text" value="{{ $original_text }}">
