@@ -14,12 +14,15 @@ class ContentController extends Controller
     }
     public function index()
     {
-        // コンテンツ一覧表示
+        $contents = Content::all();  // コンテンツを取得
+        return view('contents.index', compact('contents'));
     }
+
 
     public function show($id)
     {
-        // コンテンツ詳細表示
+        $content = Content::findOrFail($id);
+        return view('contents.show', compact('content'));
     }
 
     public function store(Request $request)

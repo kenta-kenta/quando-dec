@@ -2,7 +2,9 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use App\Models\Content;
 use Illuminate\Support\Facades\Schema;
+
 
 class AddUpdatedAtToContentsTable extends Migration
 {
