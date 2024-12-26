@@ -13,7 +13,6 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/gemini', [GeminiController::class, 'show'])->name('contents.gemini');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -25,6 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/contents', [ContentController::class, 'store'])->name('contents.store');
     Route::put('/contents/{id}', [ContentController::class, 'update'])->name('contents.update');
     Route::delete('/contents/{id}', [ContentController::class, 'destroy'])->name('contents.destroy');
+    Route::post('/gemini', [GeminiController::class, 'show'])->name('contents.gemini');
 });
 
 require __DIR__ . '/auth.php';

@@ -3,14 +3,32 @@
 namespace App\Http\Controllers;
 
 use Gemini\Laravel\Facades\Gemini;
+use Illuminate\Http\Request;
 
 class GeminiController extends Controller
 {
     //
-    public function show()
+    public function show(Request $request)
     {
-        $result = Gemini::geminiPro()->generateContent("Hello");
-        $response_text = $result->text();
-        return view('contents.gemini', compact('response_text'));
+        $validated = $request->validate([
+            'text' => 'required|string',
+        ]);
+
+        $text = $request->input('text');
+
+        // プロンプトの作成
+        $prompt = $text . 'について説明してください。';
+
+        try {
+            $result = Gemini::geminiPro()->generateContent($prompt);
+            $response_text = $result->text();
+
+            return view('contents.gemini', [
+                'original_text' => $text,
+                'response_text' => $response_text,
+            ]);
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'Gemini APIでエラーが発生しました。']);
+        }
     }
 }
