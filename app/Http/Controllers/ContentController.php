@@ -29,14 +29,14 @@ class ContentController extends Controller
     {
         // バリデーション
         $validated = $request->validate([
-            'text' => 'required|string',
-            'title' => 'required|string',
+            'original_text' => 'required|string',
+            'response_text' => 'required|string',
         ]);
 
         // 構造化データは一旦空のJSONにして保存
         $content = Content::create([
-            'text' => $validated['text'],
-            'structure' => json_encode([]), // 初期値として空のJSONを保存
+            'text' => $validated['original_text'],
+            'structure' => json_encode(['response_text' => $validated['response_text']])
         ]);
 
         // 保存後、リダイレクト

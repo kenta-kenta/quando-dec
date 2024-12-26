@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('title'); // タイトル (text型)
             $table->json('structure'); // 構造化データ (json型)
             $table->datetime('created_at'); // 作成時間 (datetime型)
+            $table->datetime('updated_at'); // 更新時間 (datetime型)
         });
     }
 
