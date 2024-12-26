@@ -7,4 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Content extends Model
 {
     //
+    protected $fillable = [
+        'text',
+        'structure',
+        'summary',
+        'user_id'
+    ];
 }

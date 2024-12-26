@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Content;
 use Gemini\Laravel\Facades\Gemini;
 use Illuminate\Http\Request;
 
