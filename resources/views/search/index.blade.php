@@ -9,10 +9,40 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <form action="{{ route('search.results') }}" method="GET">
-                        <input type="text" name="query" placeholder="検索キーワード" class="p-2 border rounded" required>
-                        <button type="submit" class="ml-2 p-2 bg-blue-500 text-white rounded">検索</button>
+                    <!-- 検索フォーム -->
+                    <form action="{{ route('search.index') }}" method="GET" class="mb-6">
+                        <div class="flex items-center">
+                            <input type="text" name="query"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                placeholder="コンテンツを検索..." value="{{ request('query') }}">
+                            <button type="submit"
+                                class="ml-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700">
+                                検索
+                            </button>
+                        </div>
                     </form>
+
+                    <!-- 検索結果表示 -->
+                    @if ($contents->count())
+                        <!-- ページネーション -->
+                        <div class="mb-4">
+                            {{ $contents->appends(request()->input())->links() }}
+                        </div>
+                        @foreach ($contents as $content)
+                            <div class="mb-4 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg">
+                                <p class="text-gray-800 dark:text-gray-300">{{ $content->title }}</p>
+                                <a href="{{ route('contents.show', $content) }}"
+                                    class="text-blue-500 hover:text-blue-700">詳細を見る</a>
+                            </div>
+                        @endforeach
+
+                        <!-- ページネーション -->
+                        <div class="mt-4">
+                            {{ $contents->appends(request()->input())->links() }}
+                        </div>
+                    @else
+                        <p>No contents found.</p>
+                    @endif
                 </div>
             </div>
         </div>
