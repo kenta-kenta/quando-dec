@@ -18,7 +18,10 @@ class GeminiController extends Controller
         $text = $request->input('text');
 
         // プロンプトの作成
-        $prompt = $text . 'について説明してください。';
+        $prompt = '・文字数指定なし
+                   ・箇条書きなどを用いて積極的に構造化
+                   ・タイトルとまとめをつけて
+                   この三つのルールで以下の文章を要約してください。' . $text;
 
         try {
             $result = Gemini::geminiPro()->generateContent($prompt);
