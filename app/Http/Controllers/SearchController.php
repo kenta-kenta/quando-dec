@@ -2,27 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Content;  // 検索対象のモデルをインポート
+use App\Models\Content;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller
 {
-    // 検索フォームを表示
-    public function index()
+
+    public function index(Request $request)
     {
-        return view('search.index');  // 検索フォームのビューを表示
-    }
+        $query = $request->input('query');
 
-    // 検索結果を表示
-    public function results(Request $request)
-    {
-        $searchQuery = $request->input('query');  // フォームから送信された検索キーワードを取得
+        // タイトルで検索
+        $contents = Content::where('title', 'like', '%' . $query . '%')->paginate(10);
 
-        // データベースを検索して結果を取得
-        $contents = Content::where('title', 'like', '%' . $searchQuery . '%')
-            ->orWhere('text', 'like', '%' . $searchQuery . '%')
-            ->get();
-
-        return view('search.results', compact('contents', 'searchQuery'));  // 結果をビューに渡す
+        return view('search.index', compact('contents', 'query'));
     }
 }
