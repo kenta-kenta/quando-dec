@@ -39,7 +39,7 @@ class ContentController extends Controller
         // 構造化データを保存
         $content = Content::create([
             'text' => $validated['original_text'],
-            'title' => $responseData['title'], // タイトルが存在しない場合は空文字
+            'title' => $responseData['title'],
             'structure' => $validated['response_text'], // オリジナルのJSON文字列を保存
         ]);
 
