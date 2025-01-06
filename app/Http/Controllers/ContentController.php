@@ -33,10 +33,14 @@ class ContentController extends Controller
             'response_text' => 'required|string',
         ]);
 
-        // 構造化データは一旦空のJSONにして保存
+        // JSONデータをデコード
+        $responseData = json_decode($validated['response_text'], true);
+
+        // 構造化データを保存
         $content = Content::create([
             'text' => $validated['original_text'],
-            'structure' => json_encode(['response_text' => $validated['response_text']])
+            'title' => $responseData['title'],
+            'structure' => $validated['response_text'], // オリジナルのJSON文字列を保存
         ]);
 
         // 保存後、リダイレクト

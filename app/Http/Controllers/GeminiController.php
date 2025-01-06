@@ -11,17 +11,20 @@ class GeminiController extends Controller
     //
     public function show(Request $request)
     {
-        $validated = $request->validate([
-            'text' => 'required|string',
-        ]);
-
         $text = $request->input('text');
 
         // プロンプトの作成
-        $prompt = '・文字数指定なし
-                   ・箇条書きなどを用いて積極的に構造化
-                   ・タイトルとまとめをつけて
-                   この三つのルールで以下の文章を要約してください。' . $text;
+        $prompt = '以下の会話の文字起こしを、指定されたJSON形式で構造化してください。
+        議事のポイントと次のアクションは必ず最大4つに絞ってください。
+
+        **JSON形式:**
+
+        {
+            "title": "会話のタイトル",
+            "summary": 会話の要約文,
+            "point": ["会話のポイント1", "会話のポイント2", ...],
+            "next-action": ["次のアクション1", "次のアクション2", ...]
+        }' . $text;
 
         try {
             $result = Gemini::geminiPro()->generateContent($prompt);

@@ -18,10 +18,49 @@
                     </div>
 
                     <!-- Geminiの応答 -->
-                    <div>
-                        <h3 class="text-lg font-semibold mb-2">Geminiの応答：</h3>
-                        <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
-                            {!! nl2br(e($response_text)) !!}
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold mb-4">Geminiの応答：</h3>
+
+                        @php
+                        $json = json_decode($response_text, true);
+                        @endphp
+
+                        <div class="space-y-6 bg-gray-50 dark:bg-gray-700 rounded-lg p-6 shadow-sm">
+                            @if(isset($json['title']))
+                            <div class="border-b pb-4 dark:border-gray-600">
+                                <h4 class="font-semibold text-gray-700 dark:text-gray-300 mb-2">タイトル：</h4>
+                                <p class="text-gray-800 dark:text-gray-200">{{ $json['title'] }}</p>
+                            </div>
+                            @endif
+
+                            @if(isset($json['summary']))
+                            <div class="border-b pb-4 dark:border-gray-600">
+                                <h4 class="font-semibold text-gray-700 dark:text-gray-300 mb-2">要約：</h4>
+                                <p class="text-gray-800 dark:text-gray-200 leading-relaxed">{{ $json['summary'] }}</p>
+                            </div>
+                            @endif
+
+                            @if(isset($json['point']))
+                            <div class="border-b pb-4 dark:border-gray-600">
+                                <h4 class="font-semibold text-gray-700 dark:text-gray-300 mb-2">ポイント：</h4>
+                                <ul class="list-disc pl-5 space-y-2">
+                                    @foreach($json['point'] as $point)
+                                    <li class="text-gray-800 dark:text-gray-200">{{ $point }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            @endif
+
+                            @if(isset($json['next-action']))
+                            <div>
+                                <h4 class="font-semibold text-gray-700 dark:text-gray-300 mb-2">次のアクション：</h4>
+                                <ul class="list-disc pl-5 space-y-2">
+                                    @foreach($json['next-action'] as $action)
+                                    <li class="text-gray-800 dark:text-gray-200">{{ $action }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            @endif
                         </div>
                     </div>
 

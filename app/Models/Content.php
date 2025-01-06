@@ -9,8 +9,8 @@ class Content extends Model
     //
     protected $fillable = [
         'text',
+        'title',
         'structure',
-        'summary',
         'user_id'
     ];
 }
