@@ -26,7 +26,6 @@ Route::middleware('auth')->group(function () {
     Route::put('/contents/{id}', [ContentController::class, 'update'])->name('contents.update');
     Route::delete('/contents/{id}', [ContentController::class, 'destroy'])->name('contents.destroy');
     Route::post('/gemini', [GeminiController::class, 'show'])->name('contents.gemini');
-    Route::get('/search', [SearchController::class, 'index'])->name('search.index');
 });
 
 require __DIR__ . '/auth.php';
