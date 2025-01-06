@@ -19,7 +19,6 @@ class GeminiController extends Controller
 
         **JSON形式:**
 
-        ```json
         {
             "title": "会話のタイトル",
             "summary": 会話の要約文,
