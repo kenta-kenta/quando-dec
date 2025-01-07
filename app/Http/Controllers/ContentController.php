@@ -17,18 +17,25 @@ class ContentController extends Controller
         $query = $request->input('query'); // 検索クエリを取得
 
         if ($query) {
-            // 検索クエリがある場合、検索結果とそれ以外のデータを取得
-            $searchResults = Content::where('title', 'LIKE', '%' . $query . '%')->paginate(5, ['*'], 'searchPage');
-            $otherContents = Content::where('title', 'NOT LIKE', '%' . $query . '%')->paginate(5, ['*'], 'otherPage');
+            // 検索クエリがある場合、検索結果とそれ以外のデータを取得し、作成日が新しい順に並べ替え
+            $searchResults = Content::where('title', 'LIKE', '%' . $query . '%')
+                ->orderBy('created_at', 'desc') // 作成日が新しい順に並べ替え
+                ->paginate(5, ['*'], 'searchPage');
+
+            $otherContents = Content::where('title', 'NOT LIKE', '%' . $query . '%')
+                ->orderBy('created_at', 'desc') // 作成日が新しい順に並べ替え
+                ->paginate(5, ['*'], 'otherPage');
         } else {
-            // クエリがない場合は全てのコンテンツを取得
+            // クエリがない場合は全てのコンテンツを取得し、作成日が新しい順に並べ替え
             $searchResults = collect(); // 空のコレクション
-            $otherContents = Content::paginate(10);
+            $otherContents = Content::orderBy('created_at', 'desc') // 作成日が新しい順に並べ替え
+                ->paginate(10);
         }
 
         // ビューにデータを渡す
         return view('contents.index', compact('searchResults', 'otherContents', 'query'));
     }
+
 
 
 
@@ -67,8 +74,16 @@ class ContentController extends Controller
 
     public function destroy($id)
     {
-        // コンテンツ削除
+        // コンテンツをidで取得
+        $content = Content::findOrFail($id);
+
+        // コンテンツを削除
+        $content->delete();
+
+        // 成功メッセージと共にコンテンツ一覧ページにリダイレクト
+        return redirect()->route('contents.index')->with('success', 'コンテンツが削除されました。');
     }
+
 
     public function edit($id)
     {
