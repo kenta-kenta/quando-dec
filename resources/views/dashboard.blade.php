@@ -73,29 +73,32 @@
             </div>
         </div>
     </div>
+    <<<<<<< HEAD
 
-    <script>
+        <script>
         function switchTab(tabName) {
-            // すべてのタブコンテンツを非表示
-            const allContents = document.querySelectorAll('.tab-content');
-            allContents.forEach(content => content.classList.add('hidden'));
+        // すべてのタブコンテンツを非表示
+        const allContents = document.querySelectorAll('.tab-content');
+        allContents.forEach(content => content.classList.add('hidden'));
 
-            // すべてのタブを非アクティブ状態に
-            const allTabs = document.querySelectorAll('button');
-            allTabs.forEach(tab => tab.classList.remove('bg-gray-200', 'dark:bg-gray-700', 'font-bold'));
+        // すべてのタブを非アクティブ状態に
+        const allTabs = document.querySelectorAll('button');
+        allTabs.forEach(tab => tab.classList.remove('bg-gray-200', 'dark:bg-gray-700', 'font-bold'));
 
-            // 指定されたタブを表示
-            const activeTab = document.getElementById(`content-${tabName}`);
-            activeTab.classList.remove('hidden');
+        // 指定されたタブを表示
+        const activeTab = document.getElementById(`content-${tabName}`);
+        activeTab.classList.remove('hidden');
 
-            // 指定されたタブをアクティブに
-            const activeButton = document.getElementById(`tab-${tabName}`);
-            activeButton.classList.add('bg-gray-200', 'dark:bg-gray-700', 'font-bold');
+        // 指定されたタブをアクティブに
+        const activeButton = document.getElementById(`tab-${tabName}`);
+        activeButton.classList.add('bg-gray-200', 'dark:bg-gray-700', 'font-bold');
         }
 
         // デフォルトで「目的」タブを表示
         document.addEventListener('DOMContentLoaded', () => {
-            switchTab('purpose');
+        switchTab('purpose');
         });
-    </script>
+        </script>
+        =======
+        >>>>>>> feature-edit
 </x-app-layout>
