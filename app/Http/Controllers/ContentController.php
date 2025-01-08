@@ -12,11 +12,24 @@ class ContentController extends Controller
         // フォームビューを表示
         return view('contents.create');
     }
-    public function index()
+    public function index(Request $request)
     {
-        $contents = Content::all();  // コンテンツを取得
-        return view('contents.index', compact('contents'));
+        $query = $request->input('query'); // 検索クエリを取得
+
+        if ($query) {
+            // 検索クエリがある場合、検索結果とそれ以外のデータを取得
+            $searchResults = Content::where('title', 'LIKE', '%' . $query . '%')->paginate(5, ['*'], 'searchPage');
+            $otherContents = Content::where('title', 'NOT LIKE', '%' . $query . '%')->paginate(5, ['*'], 'otherPage');
+        } else {
+            // クエリがない場合は全てのコンテンツを取得
+            $searchResults = collect(); // 空のコレクション
+            $otherContents = Content::paginate(10);
+        }
+
+        // ビューにデータを渡す
+        return view('contents.index', compact('searchResults', 'otherContents', 'query'));
     }
+
 
 
     public function show($id)
