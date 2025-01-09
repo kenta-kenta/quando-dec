@@ -99,9 +99,7 @@
         });
     </script>
 
-</x-app-layout>
 
-<x-app-layout>
     <!-- 他の内容 -->
 
     <script>
