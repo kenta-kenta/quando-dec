@@ -67,10 +67,48 @@ class ContentController extends Controller
         return redirect()->route('contents.create')->with('success', 'データが保存されました！');
     }
 
+
     public function update(Request $request, $id)
     {
-        // コンテンツ更新
+        // バリデーション
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'summary' => 'nullable|string',
+            'point' => 'nullable|array',
+            'point.*' => 'nullable|string',
+            'next_action' => 'nullable|array',
+            'next_action.*' => 'nullable|string',
+        ]);
+
+
+        // コンテンツをidで取得
+        $content = Content::findOrFail($id);
+
+        // 元のstructureデータを取得（既存データ）
+        $structure = json_decode($content->structure, true);
+
+
+        // 更新するデータを構造化
+        $structure['title'] = $validated['title'];
+        $structure['summary'] = $validated['summary'] ?? ''; // 空の値の場合は空文字にする
+        $structure['point'] = $validated['point'] ?? []; // ポイントが空の場合は空の配列にする
+        $structure['next-action'] = $validated['next_action'] ?? []; // 次のアクションが空の場合は空の配列にする
+
+        // 更新
+        $content->update([
+            'title' => $validated['title'],
+            'structure' => json_encode([
+                'summary' => $validated['summary'],
+                'point' => $validated['point'] ?? [],
+                'next-action' => $validated['next_action'] ?? [],
+            ]),
+        ]);
+
+
+        // 更新後、リダイレクト
+        return redirect()->route('contents.create');
     }
+
 
     public function destroy($id)
     {
