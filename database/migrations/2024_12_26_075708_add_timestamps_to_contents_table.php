@@ -12,20 +12,25 @@ return new class extends Migration
     public function up()
     {
         Schema::table('contents', function (Blueprint $table) {
-            $table->datetime('updated_at');
+            $table->datetime('updated_at')->nullable(); // updated_atをnullableで追加
         });
+
         Schema::table('contents', function (Blueprint $table) {
-            $table->string('title')->nullable()->change();
+            $table->string('title')->nullable()->change(); // titleをnullableに変更
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down()
     {
         Schema::table('contents', function (Blueprint $table) {
-            $table->dropTimestamps();
+            $table->dropColumn('updated_at'); // updated_atのみを削除
         });
+
         Schema::table('contents', function (Blueprint $table) {
-            $table->string('title')->nullable(false)->change();
+            $table->string('title')->nullable(false)->change(); // titleを非nullableに戻す
         });
     }
 };

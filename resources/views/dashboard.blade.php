@@ -100,3 +100,28 @@
     </script>
 
 </x-app-layout>
+
+<x-app-layout>
+    <!-- 他の内容 -->
+
+    <script>
+        // タブ切り替え用のJavaScriptコード
+        function switchTab(tabName) {
+            const allContents = document.querySelectorAll('.tab-content');
+            allContents.forEach(content => content.classList.add('hidden'));
+
+            const allTabs = document.querySelectorAll('button');
+            allTabs.forEach(tab => tab.classList.remove('bg-gray-200', 'dark:bg-gray-700', 'font-bold'));
+
+            const activeTab = document.getElementById(`content-${tabName}`);
+            activeTab.classList.remove('hidden');
+
+            const activeButton = document.getElementById(`tab-${tabName}`);
+            activeButton.classList.add('bg-gray-200', 'dark:bg-gray-700', 'font-bold');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            switchTab('purpose');
+        });
+    </script>
+</x-app-layout>
