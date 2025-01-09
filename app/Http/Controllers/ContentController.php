@@ -80,13 +80,11 @@ class ContentController extends Controller
             'next_action.*' => 'nullable|string',
         ]);
 
-
         // コンテンツをidで取得
         $content = Content::findOrFail($id);
 
         // 元のstructureデータを取得（既存データ）
         $structure = json_decode($content->structure, true);
-
 
         // 更新するデータを構造化
         $structure['title'] = $validated['title'];
@@ -97,16 +95,11 @@ class ContentController extends Controller
         // 更新
         $content->update([
             'title' => $validated['title'],
-            'structure' => json_encode([
-                'summary' => $validated['summary'],
-                'point' => $validated['point'] ?? [],
-                'next-action' => $validated['next_action'] ?? [],
-            ]),
+            'structure' => json_encode($structure), // 構造化データをJSON文字列に変換して保存
         ]);
 
-
         // 更新後、リダイレクト
-        return redirect()->route('contents.create');
+        return redirect()->route('contents.index');
     }
 
 
