@@ -24,6 +24,7 @@
                         <span id="status" class="text-gray-600"></span>
                     </div>
 
+                    <div id="interim" class="text-gray-500 italic mt-2"></div>
                     <!-- フォーム開始 -->
                     <form method="POST" action="{{ route('contents.gemini') }}">
                         @csrf
@@ -70,6 +71,10 @@
         recognition.lang = 'ja-JP';
         recognition.continuous = true;
         recognition.interimResults = true;
+        recognition.maxAlternatives = 1;
+
+        let finalTranscript = '';
+        let recognitionTimer;
 
         function startRecognition() {
             document.getElementById('status').textContent = '音声認識中...';
@@ -82,23 +87,30 @@
         }
 
         recognition.onresult = function(event) {
+            clearTimeout(recognitionTimer);
             const results = event.results;
-            let finalTranscript = '';
             let interimTranscript = '';
 
             for (let i = event.resultIndex; i < results.length; i++) {
                 const transcript = results[i][0].transcript;
                 if (results[i].isFinal) {
-                    finalTranscript += transcript;
+                    finalTranscript += transcript + '\n';
+                    document.getElementById('text').value += transcript + '\n';
                 } else {
                     interimTranscript += transcript;
                 }
             }
 
-            if (finalTranscript !== '') {
-                const textarea = document.getElementById('text');
-                textarea.value = textarea.value + finalTranscript + '\n';
-            }
+            document.getElementById('interim').textContent = interimTranscript;
+
+            // 短い区切り時間（500ms）で確定
+            recognitionTimer = setTimeout(() => {
+                if (interimTranscript) {
+                    document.getElementById('text').value += interimTranscript + '\n';
+                    interimTranscript = '';
+                    document.getElementById('interim').textContent = '';
+                }
+            }, 500);
         }
 
         recognition.onerror = function(event) {
