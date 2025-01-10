@@ -114,6 +114,7 @@ services:
             - sail
 networks:
     sail:
+        name: quando-dec_sail
         driver: bridge
 volumes:
     sail-mysql:
