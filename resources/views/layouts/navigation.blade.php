@@ -21,9 +21,6 @@
                     <x-nav-link :href="route('contents.index')" :active="request()->routeIs('contents.index')">
                         {{ __('一覧・検索') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
-                        {{ __('Profile') }}
-                    </x-nav-link>
                 </div>
             </div>
 
