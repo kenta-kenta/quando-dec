@@ -42,9 +42,9 @@ services:
     mysql:
         image: 'mysql/mysql-server:8.0'
         ports:
-            - '${FORWARD_DB_PORT:-3306}:3306'
+            - 3306:3306
         environment:
-            MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_ROOT_PASSWORD: 'password'
             MYSQL_ROOT_HOST: '%'
             MYSQL_DATABASE: '${DB_DATABASE}'
             MYSQL_USER: '${DB_USERNAME}'
@@ -114,6 +114,7 @@ services:
             - sail
 networks:
     sail:
+        name: quando-dec_sail
         driver: bridge
 volumes:
     sail-mysql:

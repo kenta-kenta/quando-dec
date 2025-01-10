@@ -10,3 +10,9 @@
 | POST     | /api/transcripts | TranscriptController@store | 文字起こしデータの AI 処理 |
 | GET      | /search          | SearchController@index     | 検索フォーム表示           |
 | GET      | /api/search      | SearchController@search    | 検索 API                   |
+
+```
+// geminiを使う
+ $ ./vendor/bin/sail composer require google-gemini-php/laravel
+ $ ./vendor/bin/sail php artisan gemini:install
+```
