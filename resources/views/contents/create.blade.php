@@ -11,6 +11,19 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <h3 class="text-lg font-semibold mb-4">{{ __('テキストを入力してください') }}</h3>
 
+                    <!-- 音声認識コントロール -->
+                    <div class="mb-4 flex items-center space-x-4">
+                        <button onclick="startRecognition()"
+                            class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
+                            音声入力開始
+                        </button>
+                        <button onclick="stopRecognition()"
+                            class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">
+                            音声入力停止
+                        </button>
+                        <span id="status" class="text-gray-600"></span>
+                    </div>
+
                     <!-- フォーム開始 -->
                     <form method="POST" action="{{ route('contents.gemini') }}">
                         @csrf
@@ -19,8 +32,8 @@
                             <label for="text" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                 {{ __('テキスト') }}
                             </label>
-                            <textarea id="text" name="text" rows="5" required
-                                class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-gray-100">{{ old('text') }}</textarea>
+                            <textarea id="text" name="text" rows="10" required
+                                class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-gray-100"></textarea>
                         </div>
 
                         <!-- プルダウンメニュー -->
@@ -51,4 +64,45 @@
             </div>
         </div>
     </div>
+
+    <script>
+        const recognition = new webkitSpeechRecognition();
+        recognition.lang = 'ja-JP';
+        recognition.continuous = true;
+        recognition.interimResults = true;
+
+        function startRecognition() {
+            document.getElementById('status').textContent = '音声認識中...';
+            recognition.start();
+        }
+
+        function stopRecognition() {
+            document.getElementById('status').textContent = '';
+            recognition.stop();
+        }
+
+        recognition.onresult = function(event) {
+            const results = event.results;
+            let finalTranscript = '';
+            let interimTranscript = '';
+
+            for (let i = event.resultIndex; i < results.length; i++) {
+                const transcript = results[i][0].transcript;
+                if (results[i].isFinal) {
+                    finalTranscript += transcript;
+                } else {
+                    interimTranscript += transcript;
+                }
+            }
+
+            if (finalTranscript !== '') {
+                const textarea = document.getElementById('text');
+                textarea.value = textarea.value + finalTranscript + '\n';
+            }
+        }
+
+        recognition.onerror = function(event) {
+            document.getElementById('status').textContent = '音声認識エラー: ' + event.error;
+        }
+    </script>
 </x-app-layout>
