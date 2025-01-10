@@ -22,7 +22,7 @@
                         <h3 class="text-lg font-semibold mb-4">Geminiの応答：</h3>
 
                         @php
-                            $json = json_decode($content->structure, true);
+                        $json = json_decode($content->structure, true);
                         @endphp
 
                         <div class="space-y-6 bg-gray-50 dark:bg-gray-700 rounded-lg p-6 shadow-sm">
@@ -48,20 +48,20 @@
                                 <div class="border-b pb-4 dark:border-gray-600" id="points">
                                     <h4 class="font-semibold text-gray-700 dark:text-gray-300 mb-2">ポイント：</h4>
                                     @if (empty($json['point']))
-                                        <div class="flex space-x-4 mb-4 point">
-                                            <input type="text" name="point[0]" value=""
-                                                class="w-full p-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md border border-gray-300 dark:border-gray-600 focus:ring-indigo-500 focus:border-indigo-500">
-                                        </div>
+                                    <div class="flex space-x-4 mb-4 point">
+                                        <input type="text" name="point[0]" value=""
+                                            class="w-full p-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md border border-gray-300 dark:border-gray-600 focus:ring-indigo-500 focus:border-indigo-500">
+                                    </div>
                                     @else
-                                        @foreach ($json['point'] as $index => $point)
-                                            <div class="flex space-x-4 mb-4 point">
-                                                <input type="text" name="point[{{ $index }}]"
-                                                    value="{{ old('point.' . $index, $point) }}"
-                                                    class="w-full p-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md border border-gray-300 dark:border-gray-600 focus:ring-indigo-500 focus:border-indigo-500">
-                                                <button type="button"
-                                                    class="remove-point text-red-500 hover:text-red-700">削除</button>
-                                            </div>
-                                        @endforeach
+                                    @foreach ($json['point'] as $index => $point)
+                                    <div class="flex space-x-4 mb-4 point">
+                                        <input type="text" name="point[{{ $index }}]"
+                                            value="{{ old('point.' . $index, $point) }}"
+                                            class="w-full p-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md border border-gray-300 dark:border-gray-600 focus:ring-indigo-500 focus:border-indigo-500">
+                                        <button type="button"
+                                            class="remove-point text-red-500 hover:text-red-700">削除</button>
+                                    </div>
+                                    @endforeach
                                     @endif
                                     <button type="button"
                                         class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-800 font-semibold rounded-md hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150"
@@ -74,20 +74,20 @@
                                 <div id="next-actions">
                                     <h4 class="font-semibold text-gray-700 dark:text-gray-300 mb-2">次のアクション：</h4>
                                     @if (empty($json['next-action']))
-                                        <div class="flex space-x-4 mb-4 next-action">
-                                            <input type="text" name="next_action[0]" value=""
-                                                class="w-full p-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md border border-gray-300 dark:border-gray-600 focus:ring-indigo-500 focus:border-indigo-500">
-                                        </div>
+                                    <div class="flex space-x-4 mb-4 next-action">
+                                        <input type="text" name="next_action[0]" value=""
+                                            class="w-full p-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md border border-gray-300 dark:border-gray-600 focus:ring-indigo-500 focus:border-indigo-500">
+                                    </div>
                                     @else
-                                        @foreach ($json['next-action'] as $index => $action)
-                                            <div class="flex space-x-4 mb-4 next-action">
-                                                <input type="text" name="next_action[{{ $index }}]"
-                                                    value="{{ old('next_action.' . $index, $action) }}"
-                                                    class="w-full p-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md border border-gray-300 dark:border-gray-600 focus:ring-indigo-500 focus:border-indigo-500">
-                                                <button type="button"
-                                                    class="remove-action text-red-500 hover:text-red-700">削除</button>
-                                            </div>
-                                        @endforeach
+                                    @foreach ($json['next-action'] as $index => $action)
+                                    <div class="flex space-x-4 mb-4 next-action">
+                                        <input type="text" name="next_action[{{ $index }}]"
+                                            value="{{ old('next_action.' . $index, $action) }}"
+                                            class="w-full p-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md border border-gray-300 dark:border-gray-600 focus:ring-indigo-500 focus:border-indigo-500">
+                                        <button type="button"
+                                            class="remove-action text-red-500 hover:text-red-700">削除</button>
+                                    </div>
+                                    @endforeach
                                     @endif
                                     <button type="button"
                                         class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-800 font-semibold rounded-md hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150"
@@ -97,9 +97,9 @@
                                 </div>
 
                                 <!-- 保存ボタン -->
-                                <div class="fixed bottom-4 right-4">
+                                <div class="flex justify-end mt-6">
                                     <button type="submit"
-                                        class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                                        class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-150 ease-in-out">
                                         保存
                                     </button>
                                 </div>
@@ -125,75 +125,86 @@
         </div>
     </div>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // ポイント追加ボタン
-            document.getElementById("add-point").addEventListener("click", function () {
-                let pointContainer = document.getElementById("points");
-                let pointCount = pointContainer.querySelectorAll(".point").length;
+        // 定数定義
+        const SELECTORS = {
+            point: {
+                container: '#points',
+                item: '.point',
+                remove: '.remove-point'
+            },
+            action: {
+                container: '#next-actions',
+                item: '.next-action',
+                remove: '.remove-action'
+            }
+        };
 
-                let newPointHTML = `
-                    <div class="flex space-x-4 mb-4 point">
-                        <input type="text" name="point[${pointCount}]" value="" 
-                            class="w-full p-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md border border-gray-300 dark:border-gray-600 focus:ring-indigo-500 focus:border-indigo-500">
-                        <button type="button" class="remove-point text-red-500 hover:text-red-700">
-                            削除
-                        </button>
-                    </div>
-                `;
-                // ポイントが一つもない場合はタイトル下に追加、ある場合は下に追加
-                if (pointContainer.querySelectorAll(".point").length === 0) {
-                    pointContainer.insertAdjacentHTML('beforeend', newPointHTML);
-                } else {
-                    pointContainer.querySelector('.point:last-of-type').insertAdjacentHTML('afterend', newPointHTML);
-                }
-            });
+        // 共通の入力項目生成関数
+        function createInputItem(type, index, className) {
+            return `
+            <div class="flex space-x-4 mb-4 ${className}">
+                <input type="text" 
+                    name="${type}[${index}]" 
+                    value="" 
+                    class="w-full p-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md border border-gray-300 dark:border-gray-600 focus:ring-indigo-500 focus:border-indigo-500">
+                <button type="button" 
+                    class="remove-${type} text-red-500 hover:text-red-700 transition-colors duration-200">
+                    削除
+                </button>
+            </div>
+        `;
+        }
+
+        // 項目追加の共通処理
+        function addItem(containerId, itemClass, type) {
+            const container = document.getElementById(containerId);
+            const itemCount = container.querySelectorAll(itemClass).length;
+            const newItemHTML = createInputItem(type, itemCount, itemClass.substring(1));
+
+            if (itemCount === 0) {
+                container.insertAdjacentHTML('beforeend', newItemHTML);
+            } else {
+                container.querySelector(`${itemClass}:last-of-type`).insertAdjacentHTML('afterend', newItemHTML);
+            }
+        }
+
+        // 初期化処理
+        document.addEventListener("DOMContentLoaded", function() {
+            // ポイント追加ボタン
+            document.getElementById("add-point").addEventListener("click", () =>
+                addItem(SELECTORS.point.container.substring(1), SELECTORS.point.item, 'point'));
 
             // 次のアクション追加ボタン
-            document.getElementById("add-action").addEventListener("click", function () {
-                let actionContainer = document.getElementById("next-actions");
-                let actionCount = actionContainer.querySelectorAll(".next-action").length;
+            document.getElementById("add-action").addEventListener("click", () =>
+                addItem(SELECTORS.action.container.substring(1), SELECTORS.action.item, 'next_action'));
 
-                let newActionHTML = `
-                    <div class="flex space-x-4 mb-4 next-action">
-                        <input type="text" name="next_action[${actionCount}]" value="" 
-                            class="w-full p-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md border border-gray-300 dark:border-gray-600 focus:ring-indigo-500 focus:border-indigo-500">
-                        <button type="button" class="remove-action text-red-500 hover:text-red-700">
-                            削除
-                        </button>
-                    </div>
-                `;
-                // 次のアクションが一つもない場合はタイトル下に追加、ある場合は下に追加
-                if (actionContainer.querySelectorAll(".next-action").length === 0) {
-                    actionContainer.insertAdjacentHTML('beforeend', newActionHTML);
-                } else {
-                    actionContainer.querySelector('.next-action:last-of-type').insertAdjacentHTML('afterend', newActionHTML);
-                }
-            });
-
-            // ポイント削除機能
-            document.body.addEventListener("click", function (e) {
-                if (e.target && e.target.classList.contains("remove-point")) {
-                    e.target.closest(".point").remove();
-                }
-            });
-
-            // 次のアクション削除機能
-            document.body.addEventListener("click", function (e) {
-                if (e.target && e.target.classList.contains("remove-action")) {
-                    e.target.closest(".next-action").remove();
+            // 削除機能のイベント委譲
+            document.body.addEventListener("click", function(e) {
+                if (e.target.classList.contains("remove-point")) {
+                    e.target.closest(SELECTORS.point.item).remove();
+                } else if (e.target.classList.contains("remove-action")) {
+                    e.target.closest(SELECTORS.action.item).remove();
                 }
             });
         });
-    </script>
-    <script>
-        function deleteContentAndRedirect() {
-            // 削除フォームを送信
-            document.getElementById('delete-form').submit();
 
-            // 少し待ってからリダイレクト (削除が完了するのを待つため)
-            setTimeout(function () {
-                window.location.href = '{{ route('contents.create') }}';
-            }, 500); // 500ms後にリダイレクト
+        // 削除とリダイレクトの非同期処理
+        async function deleteContentAndRedirect() {
+            try {
+                const form = document.getElementById('delete-form');
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                    }
+                });
+
+                if (!response.ok) throw new Error('削除処理に失敗しました');
+            } catch (error) {
+                console.error('エラー:', error);
+                alert('削除処理中にエラーが発生しました');
+            }
         }
     </script>
 </x-app-layout>
