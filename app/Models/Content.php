@@ -11,6 +11,5 @@ class Content extends Model
         'text',
         'title',
         'structure',
-        'user_id'
     ];
 }
