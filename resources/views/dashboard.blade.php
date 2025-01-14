@@ -5,9 +5,6 @@
         </h2>
     </x-slot>
 
-    <button onclick=start()>スタート</button>
-    <button onclick=stop()>ストップ</button>
-
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -100,27 +97,6 @@
         document.addEventListener('DOMContentLoaded', () => {
             switchTab('purpose');
         });
-
-        SpeechRecognition = webkitSpeechRecognition || SpeechRecognition;
-        const recognition = new SpeechRecognition();
-        recognition.lang = 'ja-JP';
-        recognition.continuous = true;
-
-        function start() {
-            recognition.start();
-        }
-
-        function stop() {
-            recognition.stop();
-        }
-
-        recognition.onresult = (event) => {
-            for (let i = event.resultIndex; i < event.results.length; i++) {
-                if (event.results[i].isFinal) {
-                    alert(event.results[i][0].transcript);
-                }
-            }
-        }
     </script>
 
 </x-app-layout>
