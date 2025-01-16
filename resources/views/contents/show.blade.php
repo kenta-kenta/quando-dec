@@ -12,8 +12,7 @@
 
                     <!-- 作成日・更新日 -->
                     <div class="mt-4 text-gray-600">
-                        <p class="text-sm">作成日: {{ $content->created_at->format('Y-m-d H:i') }}</p>
-                        <p class="text-sm">更新日: {{ $content->updated_at->format('Y-m-d H:i') }}</p>
+                        <p class="text-sm">作成日: {{ $content->updated_at->format('Y-m-d H:i') }}</p>
                     </div>
 
                     <!-- 構造化データ -->
@@ -21,44 +20,44 @@
                         <h4 class="text-lg font-medium text-gray-800">構造化データ</h4>
                         <div class="mt-2 p-4 bg-gray-100 rounded-lg">
                             @php
-                            $structure = json_decode($content->structure, true);
+                                $structure = json_decode($content->structure, true);
                             @endphp
 
                             @if ($structure)
-                            <!-- 要約 -->
-                            @if (isset($structure['summary']))
-                            <div class="mb-4">
-                                <h5 class="font-semibold text-gray-700">要約：</h5>
-                                <p class="text-gray-800 leading-relaxed">{{ $structure['summary'] }}
-                                </p>
-                            </div>
-                            @endif
+                                <!-- 要約 -->
+                                @if (isset($structure['summary']))
+                                    <div class="mb-4">
+                                        <h5 class="font-semibold text-gray-700">要約：</h5>
+                                        <p class="text-gray-800 leading-relaxed">{{ $structure['summary'] }}
+                                        </p>
+                                    </div>
+                                @endif
 
-                            <!-- ポイント -->
-                            @if (isset($structure['point']))
-                            <div class="mb-4">
-                                <h5 class="font-semibold text-gray-700">ポイント：</h5>
-                                <ul class="list-disc pl-5">
-                                    @foreach ($structure['point'] as $point)
-                                    <li class="text-gray-800">{{ $point }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                            @endif
+                                <!-- ポイント -->
+                                @if (isset($structure['point']))
+                                    <div class="mb-4">
+                                        <h5 class="font-semibold text-gray-700">ポイント：</h5>
+                                        <ul class="list-disc pl-5">
+                                            @foreach ($structure['point'] as $point)
+                                                <li class="text-gray-800">{{ $point }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
 
-                            <!-- 次のアクション -->
-                            @if (isset($structure['next-action']))
-                            <div class="mb-4">
-                                <h5 class="font-semibold text-gray-700">次のアクション：</h5>
-                                <ul class="list-disc pl-5">
-                                    @foreach ($structure['next-action'] as $action)
-                                    <li class="text-gray-800">{{ $action }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                            @endif
+                                <!-- 次のアクション -->
+                                @if (isset($structure['next-action']))
+                                    <div class="mb-4">
+                                        <h5 class="font-semibold text-gray-700">次のアクション：</h5>
+                                        <ul class="list-disc pl-5">
+                                            @foreach ($structure['next-action'] as $action)
+                                                <li class="text-gray-800">{{ $action }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
                             @else
-                            <p class="text-gray-800">構造化データがありません。</p>
+                                <p class="text-gray-800">構造化データがありません。</p>
                             @endif
                         </div>
                     </div>
