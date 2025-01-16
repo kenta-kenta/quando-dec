@@ -1,31 +1,28 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-3xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="font-bold text-3xl text-blue-600 leading-tight">
             {{ __('使い方') }}
         </h2>
     </x-slot>
 
-    <button onclick=start()>スタート</button>
-    <button onclick=stop()>ストップ</button>
-
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
+            <div class="bg-white overflow-hidden shadow-lg rounded-lg">
+                <div class="p-6">
                     <!-- タブナビゲーション -->
-                    <div class="flex mb-8">
+                    <div class="flex mb-8 border-b border-gray-200">
                         <button
-                            class="w-1/3 py-2 text-xl text-center font-semibold hover:bg-gray-200 dark:hover:bg-gray-700 rounded-t-lg"
+                            class="w-1/3 py-3 px-4 text-lg font-semibold text-gray-600 hover:text-blue-600 transition-all duration-200 ease-in-out border-b-2 border-transparent hover:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                             id="tab-purpose" onclick="switchTab('purpose')">
                             目的
                         </button>
                         <button
-                            class="w-1/3 py-2 text-xl text-center font-semibold hover:bg-gray-200 dark:hover:bg-gray-700 rounded-t-lg"
+                            class="w-1/3 py-3 px-4 text-lg font-semibold text-gray-600 hover:text-blue-600 transition-all duration-200 ease-in-out border-b-2 border-transparent hover:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                             id="tab-features" onclick="switchTab('features')">
                             機能
                         </button>
                         <button
-                            class="w-1/3 py-2 text-xl text-center font-semibold hover:bg-gray-200 dark:hover:bg-gray-700 rounded-t-lg"
+                            class="w-1/3 py-3 px-4 text-lg font-semibold text-gray-600 hover:text-blue-600 transition-all duration-200 ease-in-out border-b-2 border-transparent hover:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                             id="tab-usage" onclick="switchTab('usage')">
                             使用法
                         </button>
@@ -85,7 +82,7 @@
 
             // すべてのタブを非アクティブ状態に
             const allTabs = document.querySelectorAll('button');
-            allTabs.forEach(tab => tab.classList.remove('bg-gray-200', 'dark:bg-gray-700', 'font-bold'));
+            allTabs.forEach(tab => tab.classList.remove('bg-gray-200', 'bg-gray-700', 'font-bold'));
 
             // 指定されたタブを表示
             const activeTab = document.getElementById(`content-${tabName}`);
@@ -93,34 +90,13 @@
 
             // 指定されたタブをアクティブに
             const activeButton = document.getElementById(`tab-${tabName}`);
-            activeButton.classList.add('bg-gray-200', 'dark:bg-gray-700', 'font-bold');
+            activeButton.classList.add('bg-gray-200', 'bg-gray-700', 'font-bold');
         }
 
         // デフォルトで「目的」タブを表示
         document.addEventListener('DOMContentLoaded', () => {
             switchTab('purpose');
         });
-
-        SpeechRecognition = webkitSpeechRecognition || SpeechRecognition;
-        const recognition = new SpeechRecognition();
-        recognition.lang = 'ja-JP';
-        recognition.continuous = true;
-
-        function start() {
-            recognition.start();
-        }
-
-        function stop() {
-            recognition.stop();
-        }
-
-        recognition.onresult = (event) => {
-            for (let i = event.resultIndex; i < event.results.length; i++) {
-                if (event.results[i].isFinal) {
-                    alert(event.results[i][0].transcript);
-                }
-            }
-        }
     </script>
 
 </x-app-layout>
