@@ -54,7 +54,7 @@
         recognition.interimResults = true;
         recognition.maxAlternatives = 1;
 
-        let finalTranscript = '';
+        let finalTranscript = ''; // 確定したテキスト
         let recognitionTimer;
 
         function startRecognition() {
@@ -67,35 +67,34 @@
             recognition.stop();
         }
 
-        recognition.onresult = function(event) {
+        recognition.onresult = function (event) {
             clearTimeout(recognitionTimer);
-            const results = event.results;
-            let interimTranscript = '';
+            let interimTranscript = ''; // 一時的な暫定テキスト
 
-            for (let i = event.resultIndex; i < results.length; i++) {
-                const transcript = results[i][0].transcript;
-                if (results[i].isFinal) {
+            for (let i = event.resultIndex; i < event.results.length; i++) {
+                const transcript = event.results[i][0].transcript;
+                if (event.results[i].isFinal) {
+                    // 確定したテキストを`finalTranscript`と表示エリアに追加
                     finalTranscript += transcript + '\n';
-                    document.getElementById('text').value += transcript + '\n';
+                    document.getElementById('text').value = finalTranscript; // 確定分のみを表示
                 } else {
+                    // 暫定テキストを収集
                     interimTranscript += transcript;
                 }
             }
 
+            // 暫定テキストをリアルタイム表示
             document.getElementById('interim').textContent = interimTranscript;
 
-            // 短い区切り時間（500ms）で確定
+            // 短い間隔で暫定テキストの自動追加をしないよう修正
             recognitionTimer = setTimeout(() => {
-                if (interimTranscript) {
-                    document.getElementById('text').value += interimTranscript + '\n';
-                    interimTranscript = '';
-                    document.getElementById('interim').textContent = '';
-                }
+                document.getElementById('interim').textContent = ''; // 暫定をクリア
             }, 500);
-        }
+        };
 
-        recognition.onerror = function(event) {
+        recognition.onerror = function (event) {
             document.getElementById('status').textContent = '音声認識エラー: ' + event.error;
-        }
+        };
     </script>
+
 </x-app-layout>
