@@ -54,8 +54,7 @@
         recognition.interimResults = true;
         recognition.maxAlternatives = 1;
 
-        let finalTranscript = ''; // 確定したテキスト
-        let recognitionTimer;
+        let finalTranscript = ''; // 確定したテキストのみ管理
 
         function startRecognition() {
             document.getElementById('status').textContent = '音声認識中...';
@@ -68,33 +67,28 @@
         }
 
         recognition.onresult = function (event) {
-            clearTimeout(recognitionTimer);
-            let interimTranscript = ''; // 一時的な暫定テキスト
+            let interimTranscript = ''; // 仮決定テキスト
 
             for (let i = event.resultIndex; i < event.results.length; i++) {
                 const transcript = event.results[i][0].transcript;
                 if (event.results[i].isFinal) {
-                    // 確定したテキストを`finalTranscript`と表示エリアに追加
+                    // 確定したテキストを追加
                     finalTranscript += transcript + '\n';
-                    document.getElementById('text').value = finalTranscript; // 確定分のみを表示
                 } else {
-                    // 暫定テキストを収集
+                    // 仮決定テキストを収集
                     interimTranscript += transcript;
                 }
             }
 
-            // 暫定テキストをリアルタイム表示
-            document.getElementById('interim').textContent = interimTranscript;
-
-            // 短い間隔で暫定テキストの自動追加をしないよう修正
-            recognitionTimer = setTimeout(() => {
-                document.getElementById('interim').textContent = ''; // 暫定をクリア
-            }, 500);
+            // 確定テキストと仮決定テキストを結合して表示
+            document.getElementById('text').value = finalTranscript + interimTranscript;
         };
 
         recognition.onerror = function (event) {
             document.getElementById('status').textContent = '音声認識エラー: ' + event.error;
         };
     </script>
+
+
 
 </x-app-layout>
