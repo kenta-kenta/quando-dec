@@ -47,7 +47,7 @@
                         <!-- コンテンツ一覧に戻るボタン -->
                         <div class="text-right mt-4">
                             <a href="{{ route('contents.index') }}"
-                                class="inline-block px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-700">
+                                class="inline-block px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700">
                                 一覧に戻る
                             </a>
                         </div>

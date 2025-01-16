@@ -1,10 +1,4 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-bold text-3xl text-blue-600 leading-tight">
-            {{ __('使い方') }}
-        </h2>
-    </x-slot>
-
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-lg rounded-lg">
@@ -82,7 +76,7 @@
 
             // すべてのタブを非アクティブ状態に
             const allTabs = document.querySelectorAll('button');
-            allTabs.forEach(tab => tab.classList.remove('bg-gray-200', 'bg-gray-700', 'font-bold'));
+            allTabs.forEach(tab => tab.classList.remove('bg-gray-200', 'font-bold'));
 
             // 指定されたタブを表示
             const activeTab = document.getElementById(`content-${tabName}`);
@@ -90,7 +84,7 @@
 
             // 指定されたタブをアクティブに
             const activeButton = document.getElementById(`tab-${tabName}`);
-            activeButton.classList.add('bg-gray-200', 'bg-gray-700', 'font-bold');
+            activeButton.classList.add('bg-gray-200', 'font-bold');
         }
 
         // デフォルトで「目的」タブを表示
