@@ -3,20 +3,12 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <!-- 元のテキスト -->
-                    <div class="mb-6">
-                        <h3 class="text-lg font-semibold mb-2">元のテキスト：</h3>
-                        <div class="bg-gray-100 rounded-lg p-4">
-                            {!! nl2br(e($content->text)) !!}
-                        </div>
-                    </div>
-
                     <!-- Geminiの応答 -->
                     <div class="mb-6">
                         <h3 class="text-lg font-semibold mb-4">Geminiの応答：</h3>
 
                         @php
-                        $json = json_decode($content->structure, true);
+                            $json = json_decode($content->structure, true);
                         @endphp
 
                         <div class="space-y-6 bg-gray-50 rounded-lg p-6 shadow-sm">
@@ -42,20 +34,22 @@
                                 <div class="border-b pb-4" id="points">
                                     <h4 class="font-semibold text-gray-700 mb-2">ポイント：</h4>
                                     @if (empty($json['point']))
-                                    <div class="flex space-x-4 mb-4 point">
-                                        <input type="text" name="point[0]" value=""
-                                            class="w-full p-2 bg-gray-100 text-gray-900 rounded-md border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
-                                    </div>
+                                        <div class="flex space-x-4 mb-4 point">
+                                            <input type="text" name="point[0]" value=""
+                                                class="w-full p-2 bg-gray-100 text-gray-900 rounded-md border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
+                                        </div>
                                     @else
-                                    @foreach ($json['point'] as $index => $point)
-                                    <div class="flex space-x-4 mb-4 point">
-                                        <input type="text" name="point[{{ $index }}]"
-                                            value="{{ old('point.' . $index, $point) }}"
-                                            class="w-full p-2 bg-gray-100 text-gray-900 rounded-md border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
-                                        <button type="button"
-                                            class="remove-point text-red-500 hover:text-red-700">削除</button>
-                                    </div>
-                                    @endforeach
+                                        @foreach ($json['point'] as $index => $point)
+                                            <div class="flex space-x-4 mb-4 point">
+                                                <input type="text" name="point[{{ $index }}]"
+                                                    value="{{ old('point.' . $index, $point) }}"
+                                                    class="w-full p-2 bg-gray-100 text-gray-900 rounded-md border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
+                                                <button type="button"
+                                                    class="remove-point inline-flex items-center px-2 py-1 bg-red-500 text-white rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500">
+                                                    削除
+                                                </button>
+                                            </div>
+                                        @endforeach
                                     @endif
                                     <button type="button"
                                         class="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 focus:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition ease-in-out duration-150"
@@ -68,20 +62,22 @@
                                 <div id="next-actions">
                                     <h4 class="font-semibold text-gray-700 mb-2">次のアクション：</h4>
                                     @if (empty($json['next-action']))
-                                    <div class="flex space-x-4 mb-4 next-action">
-                                        <input type="text" name="next_action[0]" value=""
-                                            class="w-full p-2 bg-gray-100 text-gray-900 rounded-md border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
-                                    </div>
+                                        <div class="flex space-x-4 mb-4 next-action">
+                                            <input type="text" name="next_action[0]" value=""
+                                                class="w-full p-2 bg-gray-100 text-gray-900 rounded-md border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
+                                        </div>
                                     @else
-                                    @foreach ($json['next-action'] as $index => $action)
-                                    <div class="flex space-x-4 mb-4 next-action">
-                                        <input type="text" name="next_action[{{ $index }}]"
-                                            value="{{ old('next_action.' . $index, $action) }}"
-                                            class="w-full p-2 bg-gray-100 text-gray-900 rounded-md border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
-                                        <button type="button"
-                                            class="remove-action text-red-500 hover:text-red-700">削除</button>
-                                    </div>
-                                    @endforeach
+                                        @foreach ($json['next-action'] as $index => $action)
+                                            <div class="flex space-x-4 mb-4 next-action">
+                                                <input type="text" name="next_action[{{ $index }}]"
+                                                    value="{{ old('next_action.' . $index, $action) }}"
+                                                    class="w-full p-2 bg-gray-100 text-gray-900 rounded-md border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
+                                                <button type="button"
+                                                    class="remove-action inline-flex items-center px-2 py-1 bg-red-500 text-white rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500">
+                                                    削除
+                                                </button>
+                                            </div>
+                                        @endforeach
                                     @endif
                                     <button type="button"
                                         class="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 focus:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition ease-in-out duration-150"
@@ -100,21 +96,28 @@
                             </form>
                         </div>
                     </div>
-                    <div class="mt-6 flex justify-between items-center">
-                        <!-- 削除用フォーム (非表示にする) -->
-                        <form id="delete-form" method="POST" action="{{ route('contents.destroy', $content->id) }}"
-                            style="display: none;">
-                            @csrf
-                            @method('DELETE')
-                        </form>
 
-                        <!-- 戻るボタン (削除とリダイレクトを処理) -->
-                        <button type="button" onclick="deleteContentAndRedirect()"
-                            class="inline-flex items-center px-4 py-2 bg-blue-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900">
-                            戻る
-                        </button>
+                    <!-- 元のテキスト -->
+                    <div class="mb-6">
+                        <button class="bg-gray-800 text-white px-4 py-2 rounded-md"
+                            onclick="toggleOriginalText()">元のテキストを表示</button>
+                        <div id="original-text" class="hidden mt-4 bg-gray-100 rounded-lg p-4">
+                            {!! nl2br(e($content->text)) !!}
+                        </div>
                     </div>
+
+                    <script>
+                        function toggleOriginalText() {
+                            const originalTextDiv = document.getElementById('original-text');
+                            if (originalTextDiv.classList.contains('hidden')) {
+                                originalTextDiv.classList.remove('hidden');
+                            } else {
+                                originalTextDiv.classList.add('hidden');
+                            }
+                        }
+                    </script>
                 </div>
+
             </div>
         </div>
     </div>
@@ -163,7 +166,7 @@
         }
 
         // 初期化処理
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             // ポイント追加ボタン
             document.getElementById("add-point").addEventListener("click", () =>
                 addItem(SELECTORS.point.container.substring(1), SELECTORS.point.item, 'point'));
@@ -173,7 +176,7 @@
                 addItem(SELECTORS.action.container.substring(1), SELECTORS.action.item, 'next_action'));
 
             // 削除機能のイベント委譲
-            document.body.addEventListener("click", function(e) {
+            document.body.addEventListener("click", function (e) {
                 if (e.target.classList.contains("remove-point")) {
                     e.target.closest(SELECTORS.point.item).remove();
                 } else if (e.target.classList.contains("remove-action")) {
